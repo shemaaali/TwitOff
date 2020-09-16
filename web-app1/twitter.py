@@ -5,19 +5,15 @@ import tweepy
 from .models import DB, Tweet, User
 from dotenv import load_dotenv
 load_dotenv()
-
 TWITTER_USERS = ['Osman', 'Malaze','calebhicks', 'elonmusk', 'rrherr', 'SteveMartinToGo',
                  'alyankovic', 'nasa', 'sadserver', 'jkhowland', 'austen',
                  'common_squirrel', 'KenJennings', 'conanobrien',
-                 'big_ben_clock', 'IAM_SHAKESPEARE']
-
+                 'big_ben_clock', 'IAM_SHAKESPEARE']           
 # This gives us authorization through .env file
 TWITTER_AUTH = tweepy.OAuthHandler(getenv('TWITTER_API_KEY'), getenv('TWITTER_API_KEY_SECRET'))
 TWITTER = tweepy.API(TWITTER_AUTH)
 BASILICA = basilica.Connection(getenv('BASILICA_KEY'))
-
 # to do - add functions later
-
 def add_or_update_user(username):
     """Add or update a user and their tweets or else error"""
     try:
@@ -42,3 +38,8 @@ def add_or_update_user(username):
         raise e
     else: 
         DB.session.commit()
+def insert_example_users():
+        DB.drop_all()
+        DB.create_all()
+        for user_names in TWITTER_USERS:
+            add_or_update_user(user_names)

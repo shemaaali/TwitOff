@@ -4,17 +4,14 @@ from os import getenv
 from flask_sqlalchemy import SQLAlchemy
 
 DB = SQLAlchemy()
-
 class User(DB.Model):
     """Twitter users that we pull and analyze"""
     id = DB.Column(DB.BigInteger, primary_key=True)
     name = DB.Column(DB.String(15), nullable=False)
-
     newest_tweet_id = DB.Column(DB.BigInteger)
 
     def __repr__(self):
         return '<User {}>'.format(self.name)
-
 class Tweet(DB.Model):
     """Tweets"""
     id = DB.Column(DB.BigInteger, primary_key=True)
@@ -22,7 +19,6 @@ class Tweet(DB.Model):
     embedding = DB.Column(DB.PickleType, nullable = False) 
     user_id = DB.Column(DB.BigInteger, DB.ForeignKey('user.id'), nullable=False)
     user = DB.relationship('User', backref=DB.backref('tweets', lazy=True))
-    
     def __repr__(self):
         return '<Tweet {}>'.format(self.text)
 def insert_example_users():
@@ -36,7 +32,6 @@ def insert_example_users():
     so = User(id=8, name='Sonyia')
     ra = User(id=9, name='Rowan')
     rh = User(id=10, name='rrherr')
-
     DB.session.add(osm)
     DB.session.add(mal)
     DB.session.add(mo)
@@ -47,5 +42,4 @@ def insert_example_users():
     DB.session.add(so)
     DB.session.add(ra)
     DB.session.add(rh)
-
     DB.session.commit()
