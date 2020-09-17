@@ -1,0 +1,1 @@
+web: gunicorn web-app1:APP -t 120
