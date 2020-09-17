@@ -20,6 +20,7 @@ numpy = "*"
 tweepy = "*"
 psycopg2-binary = "*"
 gunicorn = "*"
+pickle-mixin = "*"
 
 [requires]
 python_version = "3.8"
